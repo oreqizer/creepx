@@ -5,4 +5,4 @@
 [![npm](https://img.shields.io/npm/v/creepx.svg)](https://www.npmjs.com/package/creepx)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-Declarative user event handling system. :squirrel: Coming soon!
+Declarative user event tracking system. :squirrel: Coming soon!

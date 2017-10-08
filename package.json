@@ -1,7 +1,7 @@
 {
   "name": "creepx",
   "version": "0.0.0",
-  "description": "Declarative user event handling system. :squirrel:",
+  "description": "Declarative user event tracking system. :squirrel:",
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
