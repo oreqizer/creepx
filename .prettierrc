@@ -1,0 +1,5 @@
+{
+  "parser": "flow",
+  "printWidth": 100,
+  "trailingComma": "all"
+}
