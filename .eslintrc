@@ -8,5 +8,8 @@
   ],
   "plugins": [
     "flowtype"
-  ]
+  ],
+  "rules": {
+    "prettier/prettier": "warn"
+  }
 }
