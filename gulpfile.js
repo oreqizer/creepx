@@ -4,10 +4,7 @@ const plumber = require("gulp-plumber");
 
 const src = ["./src/**/*.js", "!./src/**/__tests__/**"];
 
-const buildEs = () =>
-  gulp
-    .src(src)
-    .pipe(gulp.dest("./es"));
+const buildEs = () => gulp.src(src).pipe(gulp.dest("./es"));
 
 const buildLib = () =>
   gulp
