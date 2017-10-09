@@ -4,7 +4,7 @@ node_js:
   - "stable"
 
 script:
-  - npm test
+  - npm run test:coverage
   - npm run test:flow
   - npm run lint
 
