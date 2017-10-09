@@ -10,6 +10,9 @@
     "flowtype",
     "prettier"
   ],
+  "env": {
+    "browser": true
+  },
   "rules": {
     "prettier/prettier": "warn"
   }
