@@ -8,7 +8,7 @@ const extractor = R.compose(extractData, R.prop("target"), R.head);
 
 function multiclick(stream$) {
   return stream$
-    .bufferTime(250)
+    .bufferWhen(() => stream$.delay(250))
     .filter(isMany)
     .map(extractor)
     .filter(Boolean)
