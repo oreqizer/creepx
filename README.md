@@ -17,10 +17,22 @@ To have events registered, you need to put a valid JSON string into the `data-cr
 
 #### Example
 
+HTML:
+
 ```html
 <button data-creepx='{"id":"pressbutton"}'>
   Press
 </button>
+```
+
+JS:
+
+```js
+import creep from 'creepx';
+
+creep(document, payload => {
+  // do stuff with payload
+});
 ```
 
 When a user clicks on the button, your callback will receive the following payload:
