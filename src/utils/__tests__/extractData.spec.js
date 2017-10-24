@@ -13,6 +13,6 @@ test("extractData", t => {
   t.deepEqual(deep, data);
 
   const none = extractData({ parentNode: null });
-  t.deepEqual(none, {});
+  t.equal(none, null);
   t.end();
 });

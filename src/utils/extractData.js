@@ -12,7 +12,7 @@ function extractData(target) {
     return extractData(target.parentNode);
   }
 
-  return {};
+  return null;
 }
 
 export default extractData;
