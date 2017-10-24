@@ -7,6 +7,7 @@ import creepmove from "./events/creepmove";
 import shakemove from "./events/shakemove";
 
 function creep(target, callback) {
+  // https://developer.mozilla.org/en-US/docs/Web/Events
   const click$ = Rx.Observable.fromEvent(target, "click");
   const rightclick$ = Rx.Observable.fromEvent(target, "contextmenu");
   const mousemove$ = Rx.Observable.fromEvent(target, "mousemove");
