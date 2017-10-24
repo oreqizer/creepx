@@ -8,7 +8,7 @@ const shakemove = stream$ =>
     .filter(list => list.length === 3 && compareQuartals(list))
     .map(list => ({ x: list[1].x, y: list[1].y })) // take the middle point
     .bufferTime(500)
-    .filter(list => list.length >= 5)
+    .filter(list => list.length >= 4)
     .map(list => ({
       event: "shakemove",
       data: list,
