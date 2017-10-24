@@ -29,6 +29,8 @@ test("shakemove", t => {
       event: "shakemove",
       data: [{ x: -13, y: -37 }, { x: 13, y: -37 }, { x: 13, y: 37 }, { x: -13, y: -37 }],
     });
+
+    t.end();
   });
 
   const slow$ = Rx.Observable
@@ -39,6 +41,4 @@ test("shakemove", t => {
   shakemove(slow$).subscribe(() => {
     t.fail("slow$ should not get called");
   });
-
-  t.end();
 });

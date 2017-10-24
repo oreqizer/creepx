@@ -22,6 +22,8 @@ test("doubleclick", t => {
       event: "doubleclick",
       data: { lol: "kek" },
     });
+
+    t.end();
   });
 
   const multi$ = Rx.Observable
@@ -38,6 +40,4 @@ test("doubleclick", t => {
   doubleclick(single$).subscribe(() => {
     t.fail("single$ should not be called");
   });
-
-  t.end();
 });

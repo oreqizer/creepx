@@ -42,5 +42,5 @@ test("click", t => {
     });
   });
 
-  t.end();
+  Rx.Observable.forkJoin(click$, clicks$).subscribe(() => t.end());
 });
