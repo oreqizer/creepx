@@ -20,16 +20,16 @@ const evs = [
 
 test("creepmove", t => {
   const move$ = Rx.Observable
-    .interval(75)
+    .interval(550)
     .take(3)
-    .map(i => evs[i]);
+    .map(i => evs[i % 3]);
 
   creepmove(move$).subscribe(data => {
     t.deepEqual(data, {
       event: "creepmove",
-      data: [{ x: -13, y: -37 }],
+      data: { x: -13, y: -37 },
     });
-  });
 
-  t.end();
+    t.end();
+  });
 });

@@ -2,7 +2,7 @@ import compareQuartals from "../utils/compareQuartals";
 
 const creepmove = stream$ =>
   stream$
-    .throttleTime(1000)
+    .throttleTime(500)
     .map(ev => ({ x: ev.clientX, y: ev.clientY }))
     .bufferCount(3, 1)
     .filter(list => list.length === 3 && compareQuartals(list))
