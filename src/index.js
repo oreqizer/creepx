@@ -6,6 +6,7 @@ import rightclick from "./events/rightclick";
 import creepmove from "./events/creepmove";
 import shakemove from "./events/shakemove";
 import wheel from "./events/wheel";
+import select from "./events/select";
 
 export function creepClicks(target, callback) {
   const click$ = Rx.Observable.fromEvent(target, "click");
@@ -28,11 +29,18 @@ export function creepWheel(target, callback) {
   Rx.Observable.merge(wheel(wheel$)).subscribe(callback);
 }
 
+export function creepSelect(target, callback) {
+  const select$ = Rx.Observable.fromEvent(target, "select");
+
+  Rx.Observable.merge(select(select$)).subscribe(callback);
+}
+
 function creep(target, callback) {
   // https://developer.mozilla.org/en-US/docs/Web/Events
   creepClicks(target, callback);
   creepMousemove(target, callback);
   creepWheel(target, callback);
+  creepSelect(target, callback);
 }
 
 export default creep;
