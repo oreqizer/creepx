@@ -1,9 +1,13 @@
-const cut = stream$ =>
+import extractData from "../utils/extractData";
+
+const paste = stream$ =>
   stream$.map(ev => ({
     event: "paste",
     meta: {
-      data: ev.clipboardData.getData("text/plain"),
+      id: ev.target.id || null,
+      text: ev.clipboardData.getData("text/plain"),
     },
+    data: extractData(ev.target),
   }));
 
-export default cut;
+export default paste;

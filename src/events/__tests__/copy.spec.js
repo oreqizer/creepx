@@ -3,7 +3,18 @@ import test from "tape";
 
 import copy from "../copy";
 
-const event = {};
+const event = {
+  target: {
+    id: "id",
+    dataset: {
+      creepx: JSON.stringify({ lol: "kek" }),
+    },
+  },
+};
+
+const eventPlain = {
+  target: {},
+};
 
 test("copy", t => {
   const copy$ = Rx.Observable.of(event);
@@ -11,8 +22,24 @@ test("copy", t => {
   copy(copy$).subscribe(data => {
     t.deepEqual(data, {
       event: "copy",
+      meta: {
+        id: "id",
+      },
+      data: { lol: "kek" },
     });
-
-    t.end();
   });
+
+  const copyPlain$ = Rx.Observable.of(eventPlain);
+
+  copy(copyPlain$).subscribe(data => {
+    t.deepEqual(data, {
+      event: "copy",
+      meta: {
+        id: null,
+      },
+      data: null,
+    });
+  });
+
+  Rx.Observable.forkJoin(copy$, copyPlain$).subscribe(() => t.end());
 });

@@ -7,6 +7,19 @@ const event = {
   clipboardData: {
     getData: () => "kek",
   },
+  target: {
+    id: "id",
+    dataset: {
+      creepx: JSON.stringify({ lol: "kek" }),
+    },
+  },
+};
+
+const eventPlain = {
+  clipboardData: {
+    getData: () => "kek",
+  },
+  target: {},
 };
 
 test("paste", t => {
@@ -16,10 +29,25 @@ test("paste", t => {
     t.deepEqual(data, {
       event: "paste",
       meta: {
-        data: "kek",
+        id: "id",
+        text: "kek",
       },
+      data: { lol: "kek" },
     });
-
-    t.end();
   });
+
+  const pastePlain$ = Rx.Observable.of(eventPlain);
+
+  paste(pastePlain$).subscribe(data => {
+    t.deepEqual(data, {
+      event: "paste",
+      meta: {
+        id: null,
+        text: "kek",
+      },
+      data: null,
+    });
+  });
+
+  Rx.Observable.forkJoin(paste$, pastePlain$).subscribe(() => t.end());
 });

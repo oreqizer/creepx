@@ -1,5 +1,5 @@
 function getData(target) {
-  return (target.dataset && target.dataset.creepx) || null;
+  return target.dataset && target.dataset.creepx;
 }
 
 function extractData(target) {
