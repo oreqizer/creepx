@@ -2,7 +2,7 @@ import extractData from "../utils/extractData";
 
 const click = stream$ =>
   stream$
-    .bufferWhen(() => stream$.delay(250))
+    .bufferWhen(() => stream$.delay(350))
     .filter(list => list.length === 1)
     .map(list => ({
       event: "click",

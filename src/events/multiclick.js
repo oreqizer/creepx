@@ -2,7 +2,7 @@ import extractData from "../utils/extractData";
 
 const multiclick = stream$ =>
   stream$
-    .bufferWhen(() => stream$.delay(250))
+    .bufferWhen(() => stream$.delay(350))
     .filter(list => list.length >= 3)
     .map(list => ({
       event: "multiclick",
