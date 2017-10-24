@@ -7,24 +7,32 @@ import creepmove from "./events/creepmove";
 import shakemove from "./events/shakemove";
 import wheel from "./events/wheel";
 
-function creep(target, callback) {
-  // https://developer.mozilla.org/en-US/docs/Web/Events
+export function creepClicks(target, callback) {
   const click$ = Rx.Observable.fromEvent(target, "click");
   const rightclick$ = Rx.Observable.fromEvent(target, "contextmenu");
-  const mousemove$ = Rx.Observable.fromEvent(target, "mousemove");
-  const wheel$ = Rx.Observable.fromEvent(target, "wheel");
 
   Rx.Observable
-    .merge(
-      click(click$),
-      doubleclick(click$),
-      multiclick(click$),
-      rightclick(rightclick$),
-      creepmove(mousemove$),
-      shakemove(mousemove$),
-      wheel(wheel$),
-    )
+    .merge(click(click$), doubleclick(click$), multiclick(click$), rightclick(rightclick$))
     .subscribe(callback);
+}
+
+export function creepMousemove(target, callback) {
+  const mousemove$ = Rx.Observable.fromEvent(target, "mousemove");
+
+  Rx.Observable.merge(creepmove(mousemove$), shakemove(mousemove$)).subscribe(callback);
+}
+
+export function creepWheel(target, callback) {
+  const wheel$ = Rx.Observable.fromEvent(target, "wheel");
+
+  Rx.Observable.merge(wheel(wheel$)).subscribe(callback);
+}
+
+function creep(target, callback) {
+  // https://developer.mozilla.org/en-US/docs/Web/Events
+  creepClicks(target, callback);
+  creepMousemove(target, callback);
+  creepWheel(target, callback);
 }
 
 export default creep;
