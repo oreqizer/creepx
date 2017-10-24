@@ -5,6 +5,9 @@ import multiclick from "./events/multiclick";
 import rightclick from "./events/rightclick";
 import creepmove from "./events/creepmove";
 import shakemove from "./events/shakemove";
+import cut from "./events/cut";
+import copy from "./events/copy";
+import paste from "./events/paste";
 import wheel from "./events/wheel";
 import select from "./events/select";
 
@@ -23,6 +26,18 @@ export function creepMousemove(target, callback) {
   Rx.Observable.merge(creepmove(mousemove$), shakemove(mousemove$)).subscribe(callback);
 }
 
+// TODO keyboard
+
+export function creepClipboard(target, callback) {
+  const cut$ = Rx.Observable.fromEvent(target, "cut");
+  const copy$ = Rx.Observable.fromEvent(target, "copy");
+  const paste$ = Rx.Observable.fromEvent(target, "paste");
+
+  Rx.Observable
+    .merge(cut(cut$), copy(copy$), paste(paste$))
+    .subscribe(callback);
+}
+
 export function creepWheel(target, callback) {
   const wheel$ = Rx.Observable.fromEvent(target, "wheel");
 
@@ -39,6 +54,7 @@ function creep(target, callback) {
   // https://developer.mozilla.org/en-US/docs/Web/Events
   creepClicks(target, callback);
   creepMousemove(target, callback);
+  creepClipboard(target, callback);
   creepWheel(target, callback);
   creepSelect(target, callback);
 }
