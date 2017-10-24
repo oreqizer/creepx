@@ -27,7 +27,7 @@ test("creepmove", t => {
   creepmove(move$).subscribe(data => {
     t.deepEqual(data, {
       event: "creepmove",
-      data: { x: -13, y: -37 },
+      meta: { x: -13, y: -37 },
     });
 
     t.end();

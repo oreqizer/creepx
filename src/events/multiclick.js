@@ -6,6 +6,10 @@ const multiclick = stream$ =>
     .filter(list => list.length >= 3)
     .map(list => ({
       event: "multiclick",
+      meta: {
+        x: list[0].clientX,
+        y: list[0].clientY,
+      },
       data: extractData(list[0].target),
     }));
 

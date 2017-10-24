@@ -8,7 +8,7 @@ const creepmove = stream$ =>
     .filter(list => list.length === 3 && compareQuartals(list))
     .map(list => ({
       event: "creepmove",
-      data: { x: list[1].x, y: list[1].y }, // take the middle point
+      meta: { x: list[1].x, y: list[1].y }, // take the middle point
     }));
 
 export default creepmove;

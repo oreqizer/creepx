@@ -11,7 +11,7 @@ const shakemove = stream$ =>
     .filter(list => list.length >= 4)
     .map(list => ({
       event: "shakemove",
-      data: list,
+      meta: list,
     }));
 
 export default shakemove;
