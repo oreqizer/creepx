@@ -3,7 +3,7 @@ import test from "tape";
 import mapData from "../mapData";
 
 test("mapData", t => {
-  const res = mapData("event", JSON.stringify({ lol: "kek" }));
+  const res = mapData("event", { lol: "kek" });
 
   t.deepEqual(res, {
     event: "event",

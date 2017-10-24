@@ -1,6 +1,4 @@
-function mapData(event, json) {
-  const obj = JSON.parse(json);
-
+function mapData(event, obj) {
   return {
     event,
     data: obj,

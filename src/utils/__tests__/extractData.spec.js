@@ -2,8 +2,8 @@ import test from "tape";
 
 import extractData from "../extractData";
 
-const data = JSON.stringify({ lol: "kek" });
-const target = { dataset: { creepx: data } };
+const data = { lol: "kek" };
+const target = { dataset: { creepx: JSON.stringify(data) } };
 
 test("extractData", t => {
   const flat = extractData(target);
@@ -13,6 +13,6 @@ test("extractData", t => {
   t.deepEqual(deep, data);
 
   const none = extractData({ parentNode: null });
-  t.equal(none, null);
+  t.deepEqual(none, {});
   t.end();
 });

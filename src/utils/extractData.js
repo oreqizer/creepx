@@ -1,20 +1,18 @@
-import R from "ramda";
-
 function getData(target) {
-  return target.dataset && R.prop("creepx", target.dataset);
+  return (target.dataset && target.dataset.creepx) || null;
 }
 
 function extractData(target) {
   const data = getData(target);
-  if (R.is(String, data)) {
-    return data;
+  if (typeof data === "string") {
+    return JSON.parse(data);
   }
 
   if (target.parentNode) {
     return extractData(target.parentNode);
   }
 
-  return null;
+  return {};
 }
 
 export default extractData;

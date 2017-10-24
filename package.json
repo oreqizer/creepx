@@ -21,7 +21,6 @@
   "author": "oreqizer",
   "license": "MIT",
   "dependencies": {
-    "ramda": "^0.24.1",
     "rxjs": "^5.4.3"
   },
   "devDependencies": {
