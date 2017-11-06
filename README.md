@@ -11,7 +11,7 @@ Declarative user event tracking system. :squirrel:
 
 **Creepx** attaches event listeners to the supplied DOM element, then fires your callback with event payload when various events occur.
 
-To have events registered, you need to put a valid JSON string into the `data-creepx` attribute onto DOM elements you want to track.
+Put a JSON string into the `data-creepx` attribute onto DOM elements you want to track and the data will be attached to your events.
 
 > Note: events that had `stopPropagation` called on them will not be registered.
 
@@ -50,20 +50,32 @@ You can then send the data to your log server!
 
 ### Events
 
-The following events are currently implemented:
+You can import the following functions:
 
-* `click`
-* `doubleclick`
-* `multiclick`
+```js
+import {
+  creepClicks,    // click events
+  creepMousemove, // mousemove events
+  creepKeydown,   // keydown events
+  creepClipboard, // clipboard events
+  creepWheel,     // wheel events
+  creepSelect,    // select events
+} from "creepx";
+```
+
+If you just want to track _everything_, import default:
+
+```js
+import creep from "creepx"; // yolo
+```
 
 ## Dependencies
 
 * `rxjs` >= 5.4.3
-* `ramda` >= 0.24.1
 
 ## API
 
-The package exports a default function with two parameters:
+The package exports a set of functions as well as a _default_ function with two parameters:
 
 * `target` - the DOM element to which should events be attached
 * `callback` - the callback to fire when an event happens
@@ -71,14 +83,26 @@ The package exports a default function with two parameters:
 #### Example
 
 ```js
-import creep from 'creepx';
+import creep, { creepClicks } from 'creepx';
 
+// track everything happening on document if it has 'data-creepx' on it
 creep(document, payload => {
-  fetch('http://localhost:8081/logstash', {
+  if (payload.data) {
+    fetch('http://localhost:8081/logstash', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  }
+});
+
+// track clicks on this specific button extra
+const btn = document.getElementById("trackme")
+creepClicks(btn, payload => {
+  fetch('http://localhost:8081/trackme', {
     method: 'POST',
     body: JSON.stringify(payload),
   });
-});
+})
 ```
 
 ## License
