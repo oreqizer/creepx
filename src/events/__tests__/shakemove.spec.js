@@ -3,42 +3,74 @@ import test from "tape";
 
 import shakemove from "../shakemove";
 
-const evs = [
-  {
+const evs = {
+  a: {
     clientX: 13,
     clientY: 37,
   },
-  {
+  b: {
     clientX: -13,
     clientY: -37,
   },
-  {
+  c: {
     clientX: 13,
     clientY: -37,
   },
-];
+};
 
 test("shakemove", t => {
-  const move$ = Rx.Observable
-    .interval(75)
-    .take(8)
-    .map(i => evs[i % 3]);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  shakemove(move$).subscribe(data => {
-    t.deepEqual(data, {
+  const imove = "-abcabcabca--|";
+  const omove = "-----------v-|";
+  const move$ = ts.createHotObservable(imove, evs);
+
+  ts.expectObservable(shakemove(move$, ts, 110)).toBe(omove, {
+    v: {
       event: "shakemove",
-      meta: [{ x: -13, y: -37 }, { x: 13, y: -37 }, { x: 13, y: 37 }, { x: -13, y: -37 }],
-    });
-
-    t.end();
+      meta: [
+        {
+          x: -13,
+          y: -37,
+        },
+        {
+          x: 13,
+          y: -37,
+        },
+        {
+          x: 13,
+          y: 37,
+        },
+        {
+          x: -13,
+          y: -37,
+        },
+        {
+          x: 13,
+          y: -37,
+        },
+        {
+          x: 13,
+          y: 37,
+        },
+        {
+          x: -13,
+          y: -37,
+        },
+        {
+          x: 13,
+          y: -37,
+        },
+      ],
+    },
   });
 
-  const slow$ = Rx.Observable
-    .interval(300)
-    .take(5)
-    .map(i => evs[i % 3]);
+  const islow = "-a--b--c--a-|";
+  const oslow = "------------|";
+  const slow$ = ts.createHotObservable(islow, evs);
 
-  shakemove(slow$).subscribe(() => {
-    t.fail("slow$ should not get called");
-  });
+  ts.expectObservable(shakemove(slow$, ts, 50)).toBe(oslow);
+
+  ts.flush();
+  t.end();
 });
