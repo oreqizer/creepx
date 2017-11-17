@@ -14,30 +14,29 @@ const event = {
 };
 
 test("multiclick", t => {
-  const multi$ = Rx.Observable
-    .interval(50)
-    .mapTo(event)
-    .take(3);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  multiclick(multi$).subscribe(data => {
-    t.deepEqual(data, {
+  const imulticlick = "-ee-e--|";
+  const omulticlick = "-----v-|";
+  const multiclick$ = ts.createHotObservable(imulticlick, { e: event });
+
+  ts.expectObservable(multiclick(multiclick$, ts, 40)).toBe(omulticlick, {
+    v: {
       event: "multiclick",
       meta: {
         x: 13,
         y: 37,
       },
       data: { lol: "kek" },
-    });
-
-    t.end();
+    },
   });
 
-  const double$ = Rx.Observable
-    .interval(50)
-    .mapTo(event)
-    .take(2);
+  const idblclick = "-e-e----|";
+  const odblclick = "--------|";
+  const dblclick$ = ts.createHotObservable(idblclick, { e: event });
 
-  multiclick(double$).subscribe(() => {
-    t.fail("double$ should not be called");
-  });
+  ts.expectObservable(multiclick(dblclick$, ts, 40)).toBe(odblclick);
+
+  ts.flush();
+  t.end();
 });

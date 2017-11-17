@@ -1,8 +1,10 @@
+import async from "rxjs/scheduler/async";
+
 import extractData from "../utils/extractData";
 
-const multiclick = stream$ =>
+const multiclick = (stream$, scheduler = async, delay = 350) =>
   stream$
-    .bufferWhen(() => stream$.delay(350))
+    .bufferWhen(() => stream$.delay(delay, scheduler))
     .filter(list => list.length >= 3)
     .map(list => ({
       event: "multiclick",
