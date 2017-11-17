@@ -17,6 +17,7 @@ const eventPlain = {
 };
 
 test("copy", t => {
+  // TODO marble
   const copy$ = Rx.Observable.of(event);
 
   copy(copy$).subscribe(data => {

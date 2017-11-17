@@ -17,6 +17,7 @@ const eventPlain = {
 };
 
 test("cut", t => {
+  // TODO marble
   const cut$ = Rx.Observable.of(event);
 
   cut(cut$).subscribe(data => {
@@ -41,5 +42,5 @@ test("cut", t => {
     });
   });
 
-  Rx.Observable.forkJoin(cut$, cutPlain$).subscribe(() => t.end());
+  t.end();
 });

@@ -49,5 +49,5 @@ test("paste", t => {
     });
   });
 
-  Rx.Observable.forkJoin(paste$, pastePlain$).subscribe(() => t.end());
+  t.end();
 });

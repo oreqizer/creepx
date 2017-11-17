@@ -14,6 +14,7 @@ const event = {
 };
 
 test("rightclick", t => {
+  // TODO marble
   const rightclick$ = Rx.Observable.of(event);
 
   rightclick(rightclick$).subscribe(data => {

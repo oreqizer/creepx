@@ -12,6 +12,7 @@ const event = {
 };
 
 test("select", t => {
+  // TODO marble
   const select$ = Rx.Observable.of(event);
 
   select(select$).subscribe(data => {
@@ -19,7 +20,7 @@ test("select", t => {
       event: "select",
       data: { lol: "kek" },
     });
-
-    t.end();
   });
+
+  t.end();
 });
