@@ -1,8 +1,10 @@
+import async from "rxjs/scheduler/async";
+
 import compareQuartals from "../utils/compareQuartals";
 
-const creepmove = stream$ =>
+const creepmove = (stream$, scheduler = async, delay = 500) =>
   stream$
-    .throttleTime(500)
+    .throttleTime(delay, scheduler)
     .map(ev => ({ x: ev.clientX, y: ev.clientY }))
     .bufferCount(3, 1)
     .filter(list => list.length === 3 && compareQuartals(list))
