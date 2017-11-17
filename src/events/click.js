@@ -1,8 +1,10 @@
+import async from "rxjs/scheduler/async";
+
 import extractData from "../utils/extractData";
 
-const click = stream$ =>
+const click = (stream$, scheduler = async, delay = 350) =>
   stream$
-    .bufferWhen(() => stream$.delay(350))
+    .bufferWhen(() => stream$.delay(delay, scheduler))
     .filter(list => list.length === 1)
     .map(list => ({
       event: "click",

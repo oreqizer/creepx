@@ -14,43 +14,25 @@ const event = {
 };
 
 test("click", t => {
-  const click$ = Rx.Observable.of(event);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  click(click$).subscribe(data => {
-    t.deepEqual(data, {
+  const click$ = ts.createHotObservable("--e---|", { e: event });
+
+  ts.expectObservable(click(click$, ts, 20)).toBe("----v-|", {
+    v: {
       event: "click",
       meta: {
         x: 13,
         y: 37,
       },
       data: { lol: "kek" },
-    });
+    },
   });
 
-  const multi$ = Rx.Observable
-    .interval(50)
-    .mapTo(event)
-    .take(3);
+  const dblclick$ = ts.createHotObservable("-e-e--|", { e: event });
 
-  click(multi$).subscribe(() => {
-    t.fail("multi$ should not be called");
-  });
+  ts.expectObservable(click(dblclick$, ts, 20)).toBe("------|");
 
-  const clicks$ = Rx.Observable
-    .interval(300)
-    .mapTo(event)
-    .take(2);
-
-  click(clicks$).subscribe(data => {
-    t.deepEqual(data, {
-      event: "click",
-      meta: {
-        x: 13,
-        y: 37,
-      },
-      data: { lol: "kek" },
-    });
-  });
-
-  Rx.Observable.forkJoin(click$, clicks$).subscribe(() => t.end());
+  ts.flush();
+  t.end();
 });
