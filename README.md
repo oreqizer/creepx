@@ -69,6 +69,47 @@ If you just want to track _everything_, import default:
 import creep from "creepx"; // yolo
 ```
 
+#### Click
+
+Located in `creepClicks`.
+
+* `click`
+* `doubleclick`
+* `multiclick`
+
+#### Mousemove
+
+Located in `creepMousemove`.
+
+* `creepmove`
+* `shakemove`
+
+#### Keydown
+
+Located in `creepKeydown`.
+
+* `keydown`
+
+#### Clipboard
+
+Located in `creepClipboard`.
+
+* `cut`
+* `copy`
+* `paste`
+
+#### Wheel
+
+Located in `creepWheel`.
+
+* `scroll`
+
+#### Select
+
+Located in `creepSelect`.
+
+* `select`
+
 ## Dependencies
 
 * `rxjs` >= 5.4.3
