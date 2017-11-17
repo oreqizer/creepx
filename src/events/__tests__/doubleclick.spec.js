@@ -14,36 +14,35 @@ const event = {
 };
 
 test("doubleclick", t => {
-  const double$ = Rx.Observable
-    .interval(50)
-    .mapTo(event)
-    .take(2);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  doubleclick(double$).subscribe(data => {
-    t.deepEqual(data, {
+  const iclick = "-e---|";
+  const oclick = "-----|";
+  const click$ = ts.createHotObservable(iclick, { e: event });
+
+  ts.expectObservable(doubleclick(click$, ts, 20)).toBe(oclick);
+
+  const idblclick = "-ee--|";
+  const odblclick = "---v-|";
+  const dblclick$ = ts.createHotObservable(idblclick, { e: event });
+
+  ts.expectObservable(doubleclick(dblclick$, ts, 20)).toBe(odblclick, {
+    v: {
       event: "doubleclick",
       meta: {
         x: 13,
         y: 37,
       },
       data: { lol: "kek" },
-    });
-
-    t.end();
+    },
   });
 
-  const multi$ = Rx.Observable
-    .interval(50)
-    .mapTo(event)
-    .take(3);
+  const imulticlick = "-eee----|";
+  const omulitclick = "--------|";
+  const multiclick$ = ts.createHotObservable(imulticlick, { e: event });
 
-  doubleclick(multi$).subscribe(() => {
-    t.fail("multi$ should not be called");
-  });
+  ts.expectObservable(doubleclick(multiclick$, ts, 40)).toBe(omulitclick);
 
-  const single$ = Rx.Observable.of(event);
-
-  doubleclick(single$).subscribe(() => {
-    t.fail("single$ should not be called");
-  });
+  ts.flush();
+  t.end();
 });

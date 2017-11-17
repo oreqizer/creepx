@@ -1,8 +1,10 @@
+import async from "rxjs/scheduler/async";
+
 import extractData from "../utils/extractData";
 
-const doubleclick = stream$ =>
+const doubleclick = (stream$, scheduler = async, delay = 350) =>
   stream$
-    .bufferWhen(() => stream$.delay(350))
+    .bufferWhen(() => stream$.delay(delay, scheduler))
     .filter(list => list.length === 2)
     .map(list => ({
       event: "doubleclick",

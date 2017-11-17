@@ -16,9 +16,11 @@ const event = {
 test("click", t => {
   const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  const click$ = ts.createHotObservable("--e---|", { e: event });
+  const iclick = "--e---|";
+  const oclick = "----v-|";
+  const click$ = ts.createHotObservable(iclick, { e: event });
 
-  ts.expectObservable(click(click$, ts, 20)).toBe("----v-|", {
+  ts.expectObservable(click(click$, ts, 20)).toBe(oclick, {
     v: {
       event: "click",
       meta: {
@@ -29,9 +31,11 @@ test("click", t => {
     },
   });
 
-  const dblclick$ = ts.createHotObservable("-e-e--|", { e: event });
+  const idblclick = "-e-e--|";
+  const odblclick = "------|";
+  const dblclick$ = ts.createHotObservable(idblclick, { e: event });
 
-  ts.expectObservable(click(dblclick$, ts, 20)).toBe("------|");
+  ts.expectObservable(click(dblclick$, ts, 20)).toBe(odblclick);
 
   ts.flush();
   t.end();
