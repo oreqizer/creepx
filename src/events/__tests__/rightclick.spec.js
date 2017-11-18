@@ -14,19 +14,23 @@ const event = {
 };
 
 test("rightclick", t => {
-  // TODO marble
-  const rightclick$ = Rx.Observable.of(event);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  rightclick(rightclick$).subscribe(data => {
-    t.deepEqual(data, {
+  const iclick = "--e--|";
+  const oclick = "--v--|";
+  const click$ = ts.createHotObservable(iclick, { e: event });
+
+  ts.expectObservable(rightclick(click$)).toBe(oclick, {
+    v: {
       event: "rightclick",
       meta: {
         x: 13,
         y: 37,
       },
       data: { lol: "kek" },
-    });
-
-    t.end();
+    },
   });
+
+  ts.flush();
+  t.end();
 });
