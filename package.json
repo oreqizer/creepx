@@ -44,5 +44,10 @@
     "rimraf": "^2.6.2",
     "tap-nyan": "^1.1.0",
     "tape": "^4.8.0"
-  }
+  },
+  "files": [
+    "es",
+    "lib",
+    "README.md"
+  ]
 }
