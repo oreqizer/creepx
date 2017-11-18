@@ -58,23 +58,21 @@ export function creepSelect(target, callback) {
 
 function creep(target, callback) {
   // https://developer.mozilla.org/en-US/docs/Web/Events
-  const subclick = creepClicks(target, callback);
-  const submousemove = creepMousemove(target, callback);
-  const subkeydown = creepKeydown(target, callback);
-  const subclipboard = creepClipboard(target, callback);
-  const subwheel = creepWheel(target, callback);
-  const subselect = creepSelect(target, callback);
+  const subClick = creepClicks(target, callback);
+  const subMousemove = creepMousemove(target, callback);
+  const subKeydown = creepKeydown(target, callback);
+  const subClipboard = creepClipboard(target, callback);
+  const subWheel = creepWheel(target, callback);
+  const subSelect = creepSelect(target, callback);
 
-  const unsubscribe = () => {
-    subclick.unsubscribe();
-    submousemove.unsubscribe();
-    subkeydown.unsubscribe();
-    subclipboard.unsubscribe();
-    subwheel.unsubscribe();
-    subselect.unsubscribe();
+  return () => {
+    subClick.unsubscribe();
+    subMousemove.unsubscribe();
+    subKeydown.unsubscribe();
+    subClipboard.unsubscribe();
+    subWheel.unsubscribe();
+    subSelect.unsubscribe();
   };
-
-  return unsubscribe;
 }
 
 export default creep;
