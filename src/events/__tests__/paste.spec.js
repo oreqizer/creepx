@@ -23,31 +23,38 @@ const eventPlain = {
 };
 
 test("paste", t => {
-  const paste$ = Rx.Observable.of(event);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  paste(paste$).subscribe(data => {
-    t.deepEqual(data, {
+  const ipaste = "--e--|";
+  const opaste = "--v--|";
+  const paste$ = ts.createHotObservable(ipaste, { e: event });
+
+  ts.expectObservable(paste(paste$)).toBe(opaste, {
+    v: {
       event: "paste",
       meta: {
         id: "id",
         text: "kek",
       },
       data: { lol: "kek" },
-    });
+    },
   });
 
-  const pastePlain$ = Rx.Observable.of(eventPlain);
+  const iplain = "--e--|";
+  const oplain = "--v--|";
+  const plain$ = ts.createHotObservable(iplain, { e: eventPlain });
 
-  paste(pastePlain$).subscribe(data => {
-    t.deepEqual(data, {
+  ts.expectObservable(paste(plain$)).toBe(oplain, {
+    v: {
       event: "paste",
       meta: {
         id: null,
         text: "kek",
       },
       data: null,
-    });
+    },
   });
 
+  ts.flush();
   t.end();
 });
