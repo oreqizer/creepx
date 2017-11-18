@@ -17,30 +17,36 @@ const eventPlain = {
 };
 
 test("cut", t => {
-  // TODO marble
-  const cut$ = Rx.Observable.of(event);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  cut(cut$).subscribe(data => {
-    t.deepEqual(data, {
+  const icut = "--e--|";
+  const ocut = "--v--|";
+  const cut$ = ts.createHotObservable(icut, { e: event });
+
+  ts.expectObservable(cut(cut$)).toBe(ocut, {
+    v: {
       event: "cut",
       meta: {
         id: "id",
       },
       data: { lol: "kek" },
-    });
+    },
   });
 
-  const cutPlain$ = Rx.Observable.of(eventPlain);
+  const iplain = "--e--|";
+  const oplain = "--v--|";
+  const plain$ = ts.createHotObservable(iplain, { e: eventPlain });
 
-  cut(cutPlain$).subscribe(data => {
-    t.deepEqual(data, {
+  ts.expectObservable(cut(plain$)).toBe(oplain, {
+    v: {
       event: "cut",
       meta: {
         id: null,
       },
       data: null,
-    });
+    },
   });
 
+  ts.flush();
   t.end();
 });
