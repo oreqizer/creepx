@@ -12,12 +12,20 @@ import type { Event, Subscription } from "../";
 
 const el = document.getElementById("id");
 
-function cb(payload: Event) {
+type Data = {|
+  text: string,
+|};
+
+function cb(payload: Event<Data>) {
   if (payload.type === "click") {
     const { x } = payload.meta;
 
     // $FlowExpected
     const { z } = payload.meta;
+
+    if (payload.data) {
+      const { text } = payload.data;
+    }
   }
 }
 
