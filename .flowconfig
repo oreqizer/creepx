@@ -5,7 +5,6 @@
 [include]
 
 [libs]
-types/
 
 [lints]
 
