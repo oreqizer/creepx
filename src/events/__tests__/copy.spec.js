@@ -17,30 +17,36 @@ const eventPlain = {
 };
 
 test("copy", t => {
-  // TODO marble
-  const copy$ = Rx.Observable.of(event);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  copy(copy$).subscribe(data => {
-    t.deepEqual(data, {
+  const icopy = "--e--|";
+  const ocopy = "--v--|";
+  const copy$ = ts.createHotObservable(icopy, { e: event });
+
+  ts.expectObservable(copy(copy$)).toBe(ocopy, {
+    v: {
       event: "copy",
       meta: {
         id: "id",
       },
       data: { lol: "kek" },
-    });
+    },
   });
 
-  const copyPlain$ = Rx.Observable.of(eventPlain);
+  const iplain = "--e--|";
+  const oplain = "--v--|";
+  const plain$ = ts.createHotObservable(iplain, { e: eventPlain });
 
-  copy(copyPlain$).subscribe(data => {
-    t.deepEqual(data, {
+  ts.expectObservable(copy(plain$)).toBe(oplain, {
+    v: {
       event: "copy",
       meta: {
         id: null,
       },
       data: null,
-    });
+    },
   });
 
+  ts.flush();
   t.end();
 });
