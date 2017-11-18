@@ -2,7 +2,7 @@ import { async } from "rxjs/scheduler/async";
 
 import compareQuartals from "../utils/compareQuartals";
 
-const creepmove = (stream$, scheduler = async, delay = 500) =>
+const creepmove = (stream$, scheduler = async, delay = 250) =>
   stream$
     .throttleTime(delay, scheduler)
     .map(ev => ({ x: ev.clientX, y: ev.clientY }))
