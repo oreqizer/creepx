@@ -16,7 +16,7 @@ export function creepClicks(target, callback) {
   const click$ = Rx.Observable.fromEvent(target, "click");
   const rightclick$ = Rx.Observable.fromEvent(target, "contextmenu");
 
-  Rx.Observable.merge(
+  return Rx.Observable.merge(
     click(click$),
     doubleclick(click$),
     multiclick(click$),
@@ -27,13 +27,13 @@ export function creepClicks(target, callback) {
 export function creepMousemove(target, callback) {
   const mousemove$ = Rx.Observable.fromEvent(target, "mousemove");
 
-  Rx.Observable.merge(creepmove(mousemove$), shakemove(mousemove$)).subscribe(callback);
+  return Rx.Observable.merge(creepmove(mousemove$), shakemove(mousemove$)).subscribe(callback);
 }
 
 export function creepKeydown(target, callback) {
   const keydown$ = Rx.Observable.fromEvent(target, "keydown");
 
-  Rx.Observable.merge(keydown(keydown$)).subscribe(callback);
+  return Rx.Observable.merge(keydown(keydown$)).subscribe(callback);
 }
 
 export function creepClipboard(target, callback) {
@@ -41,29 +41,40 @@ export function creepClipboard(target, callback) {
   const copy$ = Rx.Observable.fromEvent(target, "copy");
   const paste$ = Rx.Observable.fromEvent(target, "paste");
 
-  Rx.Observable.merge(cut(cut$), copy(copy$), paste(paste$)).subscribe(callback);
+  return Rx.Observable.merge(cut(cut$), copy(copy$), paste(paste$)).subscribe(callback);
 }
 
 export function creepWheel(target, callback) {
   const wheel$ = Rx.Observable.fromEvent(target, "wheel");
 
-  Rx.Observable.merge(wheel(wheel$)).subscribe(callback);
+  return Rx.Observable.merge(wheel(wheel$)).subscribe(callback);
 }
 
 export function creepSelect(target, callback) {
   const select$ = Rx.Observable.fromEvent(target, "select");
 
-  Rx.Observable.merge(select(select$)).subscribe(callback);
+  return Rx.Observable.merge(select(select$)).subscribe(callback);
 }
 
 function creep(target, callback) {
   // https://developer.mozilla.org/en-US/docs/Web/Events
-  creepClicks(target, callback);
-  creepMousemove(target, callback);
-  creepKeydown(target, callback);
-  creepClipboard(target, callback);
-  creepWheel(target, callback);
-  creepSelect(target, callback);
+  const subclick = creepClicks(target, callback);
+  const submousemove = creepMousemove(target, callback);
+  const subkeydown = creepKeydown(target, callback);
+  const subclipboard = creepClipboard(target, callback);
+  const subwheel = creepWheel(target, callback);
+  const subselect = creepSelect(target, callback);
+
+  const unsubscribe = () => {
+    subclick.unsubscribe();
+    submousemove.unsubscribe();
+    subkeydown.unsubscribe();
+    subclipboard.unsubscribe();
+    subwheel.unsubscribe();
+    subselect.unsubscribe();
+  };
+
+  return unsubscribe();
 }
 
 export default creep;
