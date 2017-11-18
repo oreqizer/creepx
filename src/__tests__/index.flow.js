@@ -26,4 +26,11 @@ if (el) {
   const subtest: Subscription = sub;
 
   sub.unsubscribe();
+
+  creepClicks(el, cb);
+  creepClipboard(el, cb);
+  creepMousemove(el, cb);
+  creepKeydown(el, cb);
+  creepSelect(el, cb);
+  creepWheel(el, cb);
 }
