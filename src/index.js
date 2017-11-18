@@ -74,7 +74,7 @@ function creep(target, callback) {
     subselect.unsubscribe();
   };
 
-  return unsubscribe();
+  return unsubscribe;
 }
 
 export default creep;
