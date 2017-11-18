@@ -18,7 +18,7 @@ test("select", t => {
   const oselect = "--v--|";
   const select$ = ts.createHotObservable(iselect, { e: event });
 
-  ts.expectObservable(select(select$, ts, 20)).toBe(oselect, {
+  ts.expectObservable(select(select$)).toBe(oselect, {
     v: {
       event: "select",
       data: { lol: "kek" },
