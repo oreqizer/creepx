@@ -1,8 +1,10 @@
+import async from "rxjs/scheduler/async";
+
 import extractData from "../utils/extractData";
 
-const keydown = stream$ =>
+const keydown = (stream$, scheduler = async, delay = 500) =>
   stream$
-    .bufferWhen(() => stream$.delay(500))
+    .bufferWhen(() => stream$.delay(delay, scheduler))
     .filter(list => list.length > 0)
     .map(list => ({
       event: "keydown",

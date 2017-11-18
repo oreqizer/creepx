@@ -3,8 +3,8 @@ import test from "tape";
 
 import keydown from "../keydown";
 
-const evs = [
-  {
+const evs = {
+  a: {
     key: "a",
     target: {
       dataset: {
@@ -12,7 +12,7 @@ const evs = [
       },
     },
   },
-  {
+  b: {
     key: "b",
     target: {
       dataset: {
@@ -20,7 +20,7 @@ const evs = [
       },
     },
   },
-  {
+  c: {
     key: "c",
     target: {
       dataset: {
@@ -28,24 +28,25 @@ const evs = [
       },
     },
   },
-];
+};
 
 test("keydown", t => {
-  // TODO marble
-  const keydown$ = Rx.Observable
-    .interval(100)
-    .take(3)
-    .map(i => evs[i % 3]);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  keydown(keydown$).subscribe(data => {
-    t.deepEqual(data, {
+  const ikeys = "-a-b-c--|";
+  const okeys = "------v-|";
+  const keys$ = ts.createHotObservable(ikeys, evs);
+
+  ts.expectObservable(keydown(keys$, ts, 50)).toBe(okeys, {
+    v: {
       event: "keydown",
       meta: {
         keys: ["a", "b", "c"],
       },
       data: { lol: "kek" },
-    });
-
-    t.end();
+    },
   });
+
+  ts.flush();
+  t.end();
 });
