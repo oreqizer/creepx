@@ -7,7 +7,7 @@
   "scripts": {
     "test": "npm run test:base | faucet",
     "test:nyan": "npm run test:base | tap-nyan",
-    "test:base": "tape -r=babel-register 'src/**/__tests__/*.spec.js'",
+    "test:base": "tape -r babel-register 'src/**/__tests__/*.spec.js'",
     "test:coverage": "nyc --reporter=lcov > coverage.lcov npm run test:base",
     "test:flow": "flow check",
     "lint": "eslint './**/*.js'",
