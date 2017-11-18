@@ -1,7 +1,7 @@
-// TODO marble test
+import async from "rxjs/scheduler/async";
 
-const wheel = stream$ =>
-  stream$.debounceTime(50).map(ev => ({
+const wheel = (stream$, scheduler = async, delay = 50) =>
+  stream$.debounceTime(delay, scheduler).map(ev => ({
     event: "wheel",
     meta: {
       x: ev.clientX,
