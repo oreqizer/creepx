@@ -1,0 +1,115 @@
+/* @flow */
+type Data = Object | null;
+
+type Loc = {|
+  x: number,
+  y: number,
+|};
+
+type EventClick = {|
+  type: "click",
+  meta: Loc,
+  data: Data,
+|};
+
+type EventCopy = {|
+  type: "copy",
+  meta: {|
+    id: string | null,
+  |},
+  data: Data,
+|};
+
+type EventCreepmove = {|
+  type: "creepmove",
+  meta: Loc,
+|};
+
+type EventCut = {|
+  type: "cut",
+  meta: {|
+    id: string | null,
+  |},
+  data: Data,
+|};
+
+type EventDoubleclick = {|
+  type: "doubleclick",
+  meta: Loc,
+  data: Data,
+|};
+
+type EventKeydown = {|
+  type: "keydown",
+  meta: {|
+    keys: string[],
+  |},
+  data: Data,
+|};
+
+type EventMulticlick = {|
+  type: "multiclick",
+  meta: Loc,
+  data: Data,
+|};
+
+type EventPaste = {|
+  type: "paste",
+  meta: {|
+    id: string | null,
+  |},
+  data: Data,
+|};
+
+type EventRightclick = {|
+  type: "rightclick",
+  meta: Loc,
+  data: Data,
+|};
+
+type EventSelect = {|
+  type: "select",
+  data: Data,
+|};
+
+type EventShakemove = {|
+  type: "shakemove",
+  meta: Loc[],
+|};
+
+type EventWheel = {|
+  type: "wheel",
+  meta: {|
+    ...Loc,
+    wheelDelta: number,
+  |},
+|};
+
+export type Event =
+  | EventClick
+  | EventCopy
+  | EventCreepmove
+  | EventCut
+  | EventDoubleclick
+  | EventKeydown
+  | EventMulticlick
+  | EventPaste
+  | EventRightclick
+  | EventSelect
+  | EventShakemove
+  | EventWheel;
+
+export type Subscription = {|
+  unsubscribe: () => any,
+|};
+
+type Creeper = (el: Element, (payload: Event) => any) => Subscription;
+
+declare export var creepClicks: Creeper;
+declare export var creepMousemove: Creeper;
+declare export var creepKeydown: Creeper;
+declare export var creepClipboard: Creeper;
+declare export var creepWheel: Creeper;
+declare export var creepSelect: Creeper;
+
+declare export default Creeper
