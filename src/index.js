@@ -16,9 +16,12 @@ export function creepClicks(target, callback) {
   const click$ = Rx.Observable.fromEvent(target, "click");
   const rightclick$ = Rx.Observable.fromEvent(target, "contextmenu");
 
-  Rx.Observable
-    .merge(click(click$), doubleclick(click$), multiclick(click$), rightclick(rightclick$))
-    .subscribe(callback);
+  Rx.Observable.merge(
+    click(click$),
+    doubleclick(click$),
+    multiclick(click$),
+    rightclick(rightclick$),
+  ).subscribe(callback);
 }
 
 export function creepMousemove(target, callback) {

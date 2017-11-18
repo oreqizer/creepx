@@ -118,7 +118,7 @@ Located in `creepSelect`.
 
 ## Dependencies
 
-* `rxjs` >= 5.4.3
+* `rxjs` >= 5
 
 ## API
 
