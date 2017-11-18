@@ -12,15 +12,19 @@ const event = {
 };
 
 test("select", t => {
-  // TODO marble
-  const select$ = Rx.Observable.of(event);
+  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
 
-  select(select$).subscribe(data => {
-    t.deepEqual(data, {
+  const iselect = "--e--|";
+  const oselect = "--v--|";
+  const select$ = ts.createHotObservable(iselect, { e: event });
+
+  ts.expectObservable(select(select$, ts, 20)).toBe(oselect, {
+    v: {
       event: "select",
       data: { lol: "kek" },
-    });
+    },
   });
 
+  ts.flush();
   t.end();
 });
