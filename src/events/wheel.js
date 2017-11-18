@@ -1,4 +1,4 @@
-import async from "rxjs/scheduler/async";
+import { async } from "rxjs/scheduler/async";
 
 const wheel = (stream$, scheduler = async, delay = 50) =>
   stream$.debounceTime(delay, scheduler).map(ev => ({

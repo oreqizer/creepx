@@ -1,4 +1,4 @@
-import async from "rxjs/scheduler/async";
+import { async } from "rxjs/scheduler/async";
 
 import extractData from "../utils/extractData";
 
