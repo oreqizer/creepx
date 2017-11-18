@@ -65,13 +65,17 @@ function creep(target, callback) {
   const subWheel = creepWheel(target, callback);
   const subSelect = creepSelect(target, callback);
 
-  return () => {
+  const unsubscribe = () => {
     subClick.unsubscribe();
     subMousemove.unsubscribe();
     subKeydown.unsubscribe();
     subClipboard.unsubscribe();
     subWheel.unsubscribe();
     subSelect.unsubscribe();
+  };
+
+  return {
+    unsubscribe,
   };
 }
 
