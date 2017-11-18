@@ -7,6 +7,12 @@
 
 Declarative user event tracking system. :squirrel:
 
+## TODO
+
+[ ] Add minimum distance to `creepmove` and `shakemove`
+[ ] Re-evaluate `keydown` behavior
+[ ] Finish docs
+
 ## What
 
 **Creepx** attaches event listeners to the supplied DOM element, then fires your callback with event payload when various events occur.
