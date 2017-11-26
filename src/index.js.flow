@@ -85,31 +85,35 @@ type EventWheel = {|
   |},
 |};
 
-export type Event<T> =
+export type EventClicks<T> =
   | EventClick<T>
-  | EventCopy<T>
-  | EventCreepmove
-  | EventCut<T>
   | EventDoubleclick<T>
-  | EventKeydown<T>
   | EventMulticlick<T>
-  | EventPaste<T>
-  | EventRightclick<T>
-  | EventSelect<T>
-  | EventShakemove
-  | EventWheel;
+  | EventRightclick<T>;
+
+export type EventMousemove = EventCreepmove | EventShakemove;
+
+export type EventClipboard<T> = EventCopy<T> | EventCut<T> | EventPaste<T>;
+
+export type Event<T> =
+  | EventClicks<T>
+  | EventMousemove
+  | EventKeydown<T>
+  | EventClipboard<T>
+  | EventWheel
+  | EventSelect<T>;
 
 export type Subscription = {|
   unsubscribe: () => any,
 |};
 
-type Creeper<T> = (el: Element, (payload: Event<T>) => any) => Subscription;
+type Creeper<T> = (el: Element | Document, (payload: T) => any) => Subscription;
 
-declare export var creepClicks: Creeper<*>;
-declare export var creepMousemove: Creeper<*>;
-declare export var creepKeydown: Creeper<*>;
-declare export var creepClipboard: Creeper<*>;
-declare export var creepWheel: Creeper<*>;
-declare export var creepSelect: Creeper<*>;
+declare export var creepClicks: Creeper<EventClicks<*>>;
+declare export var creepMousemove: Creeper<EventMousemove<*>>;
+declare export var creepKeydown: Creeper<EventKeydown<*>>;
+declare export var creepClipboard: Creeper<EventClipboard<*>>;
+declare export var creepWheel: Creeper<EventWheel<*>>;
+declare export var creepSelect: Creeper<EventSelect<*>>;
 
-declare export default Creeper<*>;
+declare export default Creeper<Event<*>>;
