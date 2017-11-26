@@ -10,7 +10,6 @@ Declarative user event tracking system. :squirrel:
 ## TODO
 
 - [ ] Add minimum distance to `creepmove` and `shakemove`
-- [ ] Re-evaluate `keydown` behavior
 - [ ] Finish docs
 
 ## What
