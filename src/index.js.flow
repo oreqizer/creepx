@@ -42,7 +42,7 @@ type EventDoubleclick<T> = {|
 type EventKeydown<T> = {|
   type: "keydown",
   meta: {|
-    keys: string[],
+    key: string,
   |},
   data: Data<T>,
 |};
