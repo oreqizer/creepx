@@ -6,13 +6,13 @@ type Loc = {|
   y: number,
 |};
 
-type EventClick<T> = {|
+export type EventClick<T> = {|
   type: "click",
   meta: Loc,
   data: Data<T>,
 |};
 
-type EventCopy<T> = {|
+export type EventCopy<T> = {|
   type: "copy",
   meta: {|
     id: string | null,
@@ -20,12 +20,12 @@ type EventCopy<T> = {|
   data: Data<T>,
 |};
 
-type EventCreepmove = {|
+export type EventCreepmove = {|
   type: "creepmove",
   meta: Loc,
 |};
 
-type EventCut<T> = {|
+export type EventCut<T> = {|
   type: "cut",
   meta: {|
     id: string | null,
@@ -33,13 +33,13 @@ type EventCut<T> = {|
   data: Data<T>,
 |};
 
-type EventDoubleclick<T> = {|
+export type EventDoubleclick<T> = {|
   type: "doubleclick",
   meta: Loc,
   data: Data<T>,
 |};
 
-type EventKeydown<T> = {|
+export type EventKeydown<T> = {|
   type: "keydown",
   meta: {|
     key: string,
@@ -47,13 +47,13 @@ type EventKeydown<T> = {|
   data: Data<T>,
 |};
 
-type EventMulticlick<T> = {|
+export type EventMulticlick<T> = {|
   type: "multiclick",
   meta: Loc,
   data: Data<T>,
 |};
 
-type EventPaste<T> = {|
+export type EventPaste<T> = {|
   type: "paste",
   meta: {|
     id: string | null,
@@ -61,23 +61,23 @@ type EventPaste<T> = {|
   data: Data<T>,
 |};
 
-type EventRightclick<T> = {|
+export type EventRightclick<T> = {|
   type: "rightclick",
   meta: Loc,
   data: Data<T>,
 |};
 
-type EventSelect<T> = {|
+export type EventSelect<T> = {|
   type: "select",
   data: Data<T>,
 |};
 
-type EventShakemove = {|
+export type EventShakemove = {|
   type: "shakemove",
   meta: Loc[],
 |};
 
-type EventWheel = {|
+export type EventWheel = {|
   type: "wheel",
   meta: {|
     ...Loc,

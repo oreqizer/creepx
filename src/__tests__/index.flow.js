@@ -8,7 +8,7 @@ import creep, {
   creepSelect,
   creepWheel,
 } from "../";
-import type { Event, Subscription } from "../";
+import type { Event, EventClicks, Subscription } from "../";
 
 const el = document.getElementById("id");
 
@@ -35,10 +35,9 @@ if (el) {
 
   sub.unsubscribe();
 
-  creepClicks(el, cb);
-  creepClipboard(el, cb);
-  creepMousemove(el, cb);
-  creepKeydown(el, cb);
-  creepSelect(el, cb);
-  creepWheel(el, cb);
+  creepClicks(el, (payload: EventClicks<Data>) => {
+    if (payload.data) {
+      const str: string = payload.data.text;
+    }
+  });
 }
