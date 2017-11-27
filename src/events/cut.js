@@ -1,3 +1,5 @@
+import "rxjs/add/operator/map";
+
 import extractData from "../utils/extractData";
 
 const cut = stream$ =>

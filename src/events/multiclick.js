@@ -1,4 +1,8 @@
 import { async } from "rxjs/scheduler/async";
+import "rxjs/add/operator/bufferWhen";
+import "rxjs/add/operator/delay";
+import "rxjs/add/operator/filter";
+import "rxjs/add/operator/map";
 
 import extractData from "../utils/extractData";
 

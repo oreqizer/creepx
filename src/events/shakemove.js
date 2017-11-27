@@ -1,4 +1,8 @@
 import { async } from "rxjs/scheduler/async";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/bufferCount";
+import "rxjs/add/operator/filter";
+import "rxjs/add/operator/throttleTime";
 
 import compareQuartals from "../utils/compareQuartals";
 
