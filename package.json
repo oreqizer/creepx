@@ -1,6 +1,6 @@
 {
   "name": "creepx",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Declarative user event tracking system. :squirrel:",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -9,11 +9,9 @@
     "test:nyan": "npm test | tap-nyan",
     "test:faucet": "npm test | faucet",
     "test:coverage": "nyc --reporter=lcov > coverage.lcov npm test",
-    "test:flow": "flow check",
     "lint": "eslint './**/*.js'",
-    "build": "gulp build",
     "clean": "rimraf es lib",
-    "prepare": "npm run clean && npm test && npm run test:flow && npm run lint && npm run build"
+    "prepare": "yarn clean && npm test && yarn flow check && yarn lint && yarn gulp build"
   },
   "keywords": [
     "tracking"

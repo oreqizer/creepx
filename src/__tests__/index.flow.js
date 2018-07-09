@@ -7,8 +7,8 @@ import creep, {
   creepKeydown,
   creepSelect,
   creepWheel,
-} from "../";
-import type { Event, EventClicks, Subscription } from "../";
+} from "..";
+import type { Event, EventClicks, Subscription } from "..";
 
 const el = document.getElementById("id");
 

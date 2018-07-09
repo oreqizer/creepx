@@ -109,11 +109,11 @@ export type Subscription = {|
 
 type Creeper<T> = (el: Element | Document, (payload: T) => any) => Subscription;
 
-declare export var creepClicks: Creeper<EventClicks<*>>;
-declare export var creepMousemove: Creeper<EventMousemove<*>>;
-declare export var creepKeydown: Creeper<EventKeydown<*>>;
-declare export var creepClipboard: Creeper<EventClipboard<*>>;
-declare export var creepWheel: Creeper<EventWheel<*>>;
-declare export var creepSelect: Creeper<EventSelect<*>>;
+declare export var creepClicks: Creeper<EventClicks<any>>;
+declare export var creepMousemove: Creeper<EventMousemove>;
+declare export var creepKeydown: Creeper<EventKeydown<any>>;
+declare export var creepClipboard: Creeper<EventClipboard<any>>;
+declare export var creepWheel: Creeper<EventWheel>;
+declare export var creepSelect: Creeper<EventSelect<any>>;
 
 declare export default Creeper<Event<*>>;
