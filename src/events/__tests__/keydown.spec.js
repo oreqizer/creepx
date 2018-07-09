@@ -1,4 +1,4 @@
-import Rx from "rxjs/Rx";
+import { TestScheduler } from "rxjs/testing";
 import test from "tape";
 
 import keydown from "../keydown";
@@ -15,7 +15,7 @@ const evs = {
 };
 
 test("keydown", t => {
-  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
+  const ts = new TestScheduler((a, e) => t.deepEqual(a, e));
 
   const ikeys = "-a-|";
   const okeys = "-v-|";

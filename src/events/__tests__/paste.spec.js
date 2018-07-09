@@ -1,4 +1,4 @@
-import Rx from "rxjs/Rx";
+import { TestScheduler } from "rxjs/testing";
 import test from "tape";
 
 import paste from "../paste";
@@ -23,7 +23,7 @@ const eventPlain = {
 };
 
 test("paste", t => {
-  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
+  const ts = new TestScheduler((a, e) => t.deepEqual(a, e));
 
   const ipaste = "--e--|";
   const opaste = "--v--|";

@@ -1,4 +1,4 @@
-import Rx from "rxjs/Rx";
+import { TestScheduler } from "rxjs/testing";
 import test from "tape";
 
 import copy from "../copy";
@@ -17,7 +17,7 @@ const eventPlain = {
 };
 
 test("copy", t => {
-  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
+  const ts = new TestScheduler((a, e) => t.deepEqual(a, e));
 
   const icopy = "--e--|";
   const ocopy = "--v--|";

@@ -1,4 +1,4 @@
-import Rx from "rxjs/Rx";
+import { TestScheduler } from "rxjs/testing";
 import test from "tape";
 
 import rightclick from "../rightclick";
@@ -14,7 +14,7 @@ const event = {
 };
 
 test("rightclick", t => {
-  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
+  const ts = new TestScheduler((a, e) => t.deepEqual(a, e));
 
   const iclick = "--e--|";
   const oclick = "--v--|";

@@ -1,4 +1,4 @@
-import Rx from "rxjs/Rx";
+import { TestScheduler } from "rxjs/testing";
 import test from "tape";
 
 import multiclick from "../multiclick";
@@ -14,7 +14,7 @@ const event = {
 };
 
 test("multiclick", t => {
-  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
+  const ts = new TestScheduler((a, e) => t.deepEqual(a, e));
 
   const imulticlick = "-ee-e--|";
   const omulticlick = "-----v-|";

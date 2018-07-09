@@ -1,4 +1,4 @@
-import Rx from "rxjs/Rx";
+import { TestScheduler } from "rxjs/testing";
 import test from "tape";
 
 import creepmove from "../creepmove";
@@ -19,7 +19,7 @@ const evs = {
 };
 
 test("creepmove", t => {
-  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
+  const ts = new TestScheduler((a, e) => t.deepEqual(a, e));
 
   const imove = "-a--b--c-|";
   const omove = "-------v-|";

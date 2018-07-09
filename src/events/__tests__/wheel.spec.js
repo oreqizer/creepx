@@ -1,5 +1,5 @@
 import test from "tape";
-import Rx from "rxjs/Rx";
+import { TestScheduler } from "rxjs/testing";
 
 import wheel from "../wheel";
 
@@ -10,7 +10,7 @@ const event = {
 };
 
 test("wheel", t => {
-  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
+  const ts = new TestScheduler((a, e) => t.deepEqual(a, e));
 
   const iwheel = "--e---|";
   const owheel = "----v-|";

@@ -1,4 +1,4 @@
-import Rx from "rxjs/Rx";
+import { TestScheduler } from "rxjs/testing";
 import test from "tape";
 
 import cut from "../cut";
@@ -17,7 +17,7 @@ const eventPlain = {
 };
 
 test("cut", t => {
-  const ts = new Rx.TestScheduler((a, e) => t.deepEqual(a, e));
+  const ts = new TestScheduler((a, e) => t.deepEqual(a, e));
 
   const icut = "--e--|";
   const ocut = "--v--|";
