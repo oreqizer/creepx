@@ -57,26 +57,30 @@ export function creepSelect(target, callback) {
 }
 
 function creep(target, callback) {
-  // https://developer.mozilla.org/en-US/docs/Web/Events
-  const subClick = creepClicks(target, callback);
-  const subMousemove = creepMousemove(target, callback);
-  const subKeydown = creepKeydown(target, callback);
-  const subClipboard = creepClipboard(target, callback);
-  const subWheel = creepWheel(target, callback);
-  const subSelect = creepSelect(target, callback);
+  const click$ = Observable.fromEvent(target, "click");
+  const rightclick$ = Observable.fromEvent(target, "contextmenu");
+  const mousemove$ = Observable.fromEvent(target, "mousemove");
+  const keydown$ = Observable.fromEvent(target, "keydown");
+  const cut$ = Observable.fromEvent(target, "cut");
+  const copy$ = Observable.fromEvent(target, "copy");
+  const paste$ = Observable.fromEvent(target, "paste");
+  const wheel$ = Observable.fromEvent(target, "wheel");
+  const select$ = Observable.fromEvent(target, "select");
 
-  const unsubscribe = () => {
-    subClick.unsubscribe();
-    subMousemove.unsubscribe();
-    subKeydown.unsubscribe();
-    subClipboard.unsubscribe();
-    subWheel.unsubscribe();
-    subSelect.unsubscribe();
-  };
-
-  return {
-    unsubscribe,
-  };
+  return Observable.merge(
+    click(click$),
+    doubleclick(click$),
+    multiclick(click$),
+    rightclick(rightclick$),
+    creepmove(mousemove$),
+    shakemove(mousemove$),
+    keydown(keydown$),
+    cut(cut$),
+    copy(copy$),
+    paste(paste$),
+    wheel(wheel$),
+    select(select$),
+  ).subscribe(callback);
 }
 
 export default creep;

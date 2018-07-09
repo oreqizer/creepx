@@ -2,86 +2,86 @@
 type Data<T> = T | null;
 
 type Loc = {|
-  x: number,
-  y: number,
+  +x: number,
+  +y: number,
 |};
 
 export type EventClick<T> = {|
-  type: "click",
-  meta: Loc,
-  data: Data<T>,
+  +type: "click",
+  +meta: Loc,
+  +data: Data<T>,
 |};
 
 export type EventCopy<T> = {|
-  type: "copy",
-  meta: {|
-    id: string | null,
+  +type: "copy",
+  +meta: {|
+    +id: string | null,
   |},
-  data: Data<T>,
+  +data: Data<T>,
 |};
 
 export type EventCreepmove = {|
-  type: "creepmove",
-  meta: Loc,
+  +type: "creepmove",
+  +meta: Loc,
 |};
 
 export type EventCut<T> = {|
-  type: "cut",
-  meta: {|
-    id: string | null,
+  +type: "cut",
+  +meta: {|
+    +id: string | null,
   |},
-  data: Data<T>,
+  +data: Data<T>,
 |};
 
 export type EventDoubleclick<T> = {|
-  type: "doubleclick",
-  meta: Loc,
-  data: Data<T>,
+  +type: "doubleclick",
+  +meta: Loc,
+  +data: Data<T>,
 |};
 
 export type EventKeydown<T> = {|
-  type: "keydown",
-  meta: {|
-    key: string,
+  +type: "keydown",
+  +meta: {|
+    +key: string,
   |},
-  data: Data<T>,
+  +data: Data<T>,
 |};
 
 export type EventMulticlick<T> = {|
-  type: "multiclick",
-  meta: Loc,
-  data: Data<T>,
+  +type: "multiclick",
+  +meta: Loc,
+  +data: Data<T>,
 |};
 
 export type EventPaste<T> = {|
-  type: "paste",
-  meta: {|
-    id: string | null,
+  +type: "paste",
+  +meta: {|
+    +id: string | null,
   |},
-  data: Data<T>,
+  +data: Data<T>,
 |};
 
 export type EventRightclick<T> = {|
-  type: "rightclick",
-  meta: Loc,
-  data: Data<T>,
+  +type: "rightclick",
+  +meta: Loc,
+  +data: Data<T>,
 |};
 
 export type EventSelect<T> = {|
-  type: "select",
-  data: Data<T>,
+  +type: "select",
+  +data: Data<T>,
 |};
 
 export type EventShakemove = {|
-  type: "shakemove",
-  meta: Loc[],
+  +type: "shakemove",
+  +meta: Loc[],
 |};
 
 export type EventWheel = {|
-  type: "wheel",
-  meta: {|
+  +type: "wheel",
+  +meta: {|
     ...Loc,
-    wheelDelta: number,
+    +wheelDelta: number,
   |},
 |};
 
@@ -104,16 +104,35 @@ export type Event<T> =
   | EventSelect<T>;
 
 export type Subscription = {|
-  unsubscribe: () => any,
+  +unsubscribe: () => any,
 |};
 
-type Creeper<T> = (el: Element | Document, (payload: T) => any) => Subscription;
+declare export function creepClicks<T>(
+  el: Element | Document,
+  (payload: EventClicks<T>) => any,
+): Subscription;
+declare export function creepMousemove<T>(
+  el: Element | Document,
+  (payload: EventMousemove) => any,
+): Subscription;
+declare export function creepKeydown<T>(
+  el: Element | Document,
+  (payload: EventKeydown<T>) => any,
+): Subscription;
+declare export function creepClipboard<T>(
+  el: Element | Document,
+  (payload: EventClipboard<T>) => any,
+): Subscription;
+declare export function creepWheel<T>(
+  el: Element | Document,
+  (payload: EventWheel) => any,
+): Subscription;
+declare export function creepSelect<T>(
+  el: Element | Document,
+  (payload: EventSelect<T>) => any,
+): Subscription;
 
-declare export var creepClicks: Creeper<EventClicks<any>>;
-declare export var creepMousemove: Creeper<EventMousemove>;
-declare export var creepKeydown: Creeper<EventKeydown<any>>;
-declare export var creepClipboard: Creeper<EventClipboard<any>>;
-declare export var creepWheel: Creeper<EventWheel>;
-declare export var creepSelect: Creeper<EventSelect<any>>;
-
-declare export default Creeper<Event<*>>;
+declare export default function creep<T>(
+  el: Element | Document,
+  (payload: Event<T>) => any,
+): Subscription;
