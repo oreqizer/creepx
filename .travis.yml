@@ -4,9 +4,9 @@ node_js:
   - "stable"
 
 script:
-  - npm run test:coverage
-  - npm run test:flow
-  - npm run lint
+  - yarn test:coverage
+  - yarn flow check
+  - yarn lint
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
